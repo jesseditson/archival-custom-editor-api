@@ -1,0 +1,11 @@
+.DS_Store
+dist
+node_modules
+.env
+.dev.vars
+.remote.vars
+.prod.env
+
+# typescript
+tsconfig.tsbuildinfo
+.tsimp
