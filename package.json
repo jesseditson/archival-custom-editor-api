@@ -4,5 +4,8 @@
   "description": "The injected archival editor API available in custom archival editors",
   "types": "./index.d.ts",
   "author": "Jesse Ditson <jesse@archival.dev>",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "scripts": {
+    "publish": "npm publish --access public"
+  }
 }
