@@ -1,14 +1,8 @@
 {
   "name": "@archival/custom-editor-api",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "The injected archival editor API available in custom archival editors",
   "types": "./index.d.ts",
-  "scripts": {
-    "build": "tsc"
-  },
   "author": "Jesse Ditson <jesse@archival.dev>",
-  "license": "Unlicense",
-  "devDependencies": {
-    "typescript": "^5.5.4"
-  }
+  "license": "Unlicense"
 }
