@@ -1,17 +1,11 @@
 declare module "type-utils" {
     export type GetKeys<U> = U extends Record<infer K, any> ? K : never;
-    export type UnionToIntersection<U extends object> = {
+    export type UnionToIntersection<U> = {
         [K in GetKeys<U>]: U extends Record<K, infer T> ? T : never;
     };
 }
-declare module "archival-custom-editor-api" {
+declare module "archival-custom-editor-types" {
     import type { UnionToIntersection } from "type-utils";
-    global {
-        interface Window {
-            ArchivalEditor: ArchivalEditor<any>;
-            INJECTED_VALUES: Object;
-        }
-    }
     export type CustomEditorDisplayType = "full" | "inline" | "list";
     export type FieldValueType = UnionToIntersection<FieldValue>;
     export type ValueType<T extends keyof FieldValueType> = FieldValueType[T];
@@ -35,9 +29,9 @@ declare module "archival-custom-editor-api" {
             type: T;
         };
     };
-    export type EditorEvent = {
+    export type EditorEvent<T extends keyof FieldValueType> = {
         _archivalEditorEvent: true;
-        event: ArchivalEditorInboundEvent;
+        event: ArchivalEditorInboundEvent<T>;
     };
     export type ArchivalEditorOutboundEvent<T extends keyof FieldValueType> = {
         WriteValue: ValueType<T> | undefined;
@@ -51,7 +45,9 @@ declare module "archival-custom-editor-api" {
             mime: string;
         };
     };
-    export type ArchivalEditorInboundEvent = {
+    export type ArchivalEditorInboundEvent<T extends keyof FieldValueType> = {
+        ValueUpdated: ValueType<T>;
+    } | {
         UploadProgress: {
             filename: string;
             sha: string;
@@ -70,7 +66,7 @@ declare module "archival-custom-editor-api" {
         };
     };
     export type ArchivalEditorAPI<T extends keyof FieldValueType> = {
-        value: ValueType<T> | undefined;
+        siteId: string;
         objectName: string;
         filename: string;
         field: string;
@@ -78,7 +74,7 @@ declare module "archival-custom-editor-api" {
         type: T;
         display: CustomEditorDisplayType;
         send: (evt: ArchivalEditorOutboundEvent<T>) => void;
-        listen: (listener: (evt: ArchivalEditorInboundEvent) => any) => void;
+        listen: (listener: (evt: ArchivalEditorInboundEvent<T>) => any) => void;
     };
     export type ArchivalEditorConfig = {} | void;
     export type ArchivalEditorReadyListener<T extends keyof FieldValueType> = (api: ArchivalEditorAPI<T>) => Promise<ArchivalEditorConfig> | ArchivalEditorConfig;
@@ -101,7 +97,7 @@ declare module "archival-custom-editor-api" {
         File: FileValue;
     } | {
         Meta: Meta;
-    };
+    } | "Null";
     export type F64 = number;
     export type DateTime = {
         raw: string;
@@ -129,4 +125,13 @@ declare module "archival-custom-editor-api" {
         Map: Record<string, MetaValue>;
     };
     export type Meta = Record<string, MetaValue>;
+}
+declare module "archival-custom-editor-api" {
+    import type { ArchivalEditor } from "archival-custom-editor-types";
+    global {
+        interface Window {
+            ArchivalEditor: ArchivalEditor<any>;
+            INJECTED_VALUES: Object;
+        }
+    }
 }
