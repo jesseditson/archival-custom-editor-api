@@ -1,2 +1,2 @@
 import "./editor-types";
-export * from "archival-custom-editor-api";
+export * from "archival-custom-editor-types";

@@ -1,6 +1,6 @@
 {
   "name": "@archival/custom-editor-api",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "The injected archival editor API available in custom archival editors",
   "types": "./index.d.ts",
   "author": "Jesse Ditson <jesse@archival.dev>",

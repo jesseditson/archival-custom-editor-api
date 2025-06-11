@@ -126,12 +126,3 @@ declare module "archival-custom-editor-types" {
     };
     export type Meta = Record<string, MetaValue>;
 }
-declare module "archival-custom-editor-api" {
-    import type { ArchivalEditor } from "archival-custom-editor-types";
-    global {
-        interface Window {
-            ArchivalEditor: ArchivalEditor<any>;
-            INJECTED_VALUES: Object;
-        }
-    }
-}
