@@ -46,7 +46,7 @@ declare module "archival-custom-editor-types" {
         };
     };
     export type ArchivalEditorInboundEvent<T extends keyof FieldValueType> = {
-        ValueUpdated: ValueType<T>;
+        ValueUpdated: ValueType<T> | undefined;
     } | {
         UploadProgress: {
             filename: string;
